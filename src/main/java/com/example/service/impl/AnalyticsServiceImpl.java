@@ -18,6 +18,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
     private final FlightAnalyzerService flightAnalyzerService;
     private final PriceAnalyzerService priceAnalyzerService;
 
+
     @Override
     public AnalyticsDto analyze(List<TicketDto> tickets) {
         Map<String, Long> minTimes = flightAnalyzerService.minFlightTimes(tickets);
