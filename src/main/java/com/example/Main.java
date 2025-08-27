@@ -41,6 +41,11 @@ public class Main {
         System.out.println("Минимальное время полета по перевозчикам:");
         analytics.minFlightTimes().forEach((carrier, minutes) ->
                 System.out.println("  " + carrier + ": " + minutes + " мин."));
+
+        System.out.println("\nСредняя цена по всем перевозчикам: " + analytics.averagePrice());
+        System.out.println("Медиана по всем перевозчикам: " + analytics.medianPrice());
+        System.out.println("Разница (средняя - медиана) по всем перевозчикам: " + analytics.difference());
+
         System.out.println("\nРазница между средней и медианной ценой по каждому перевозчику:");
         analytics.differenceByCarrier().forEach((carrier, diff) ->
                 System.out.printf("  %s: %s%n", carrier, diff));
