@@ -7,5 +7,7 @@ public record AnalyticsDto(
         Map<String, Long> minFlightTimes,
         BigDecimal averagePrice,
         BigDecimal medianPrice,
-        BigDecimal difference
+        BigDecimal difference,
+        Map<String, BigDecimal> differenceByCarrier
+
 ) {}

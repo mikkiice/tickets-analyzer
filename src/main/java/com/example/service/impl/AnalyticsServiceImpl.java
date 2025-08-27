@@ -23,6 +23,7 @@ public class AnalyticsServiceImpl implements AnalyticsService {
         Map<String, Long> minTimes = flightAnalyzerService.minFlightTimes(tickets);
         BigDecimal avg = priceAnalyzerService.average(tickets);
         BigDecimal median = priceAnalyzerService.median(tickets);
-        return new  AnalyticsDto(minTimes, avg, median, avg.subtract(median));
+        Map<String, BigDecimal> diffByCarrier = priceAnalyzerService.differenceByCarrier(tickets);
+        return new  AnalyticsDto(minTimes, avg, median, avg.subtract(median), diffByCarrier);
     }
 }

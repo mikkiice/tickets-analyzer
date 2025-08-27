@@ -37,11 +37,14 @@ public class Main {
         AnalyticsDto analytics = analyticsService.analyze(filtered);
 
         System.out.println("=== Аналитика VVO → TLV ===");
-        analytics.minFlightTimes().forEach((c, m) ->
-                System.out.println("  " + c + ": " + m + " мин."));
-        System.out.printf("Средняя цена: %s%n", analytics.averagePrice());
-        System.out.printf("Медиана цены: %s%n", analytics.medianPrice());
-        System.out.printf("Разница: %s%n", analytics.difference());
+
+        System.out.println("Минимальное время полета по перевозчикам:");
+        analytics.minFlightTimes().forEach((carrier, minutes) ->
+                System.out.println("  " + carrier + ": " + minutes + " мин."));
+        System.out.println("\nРазница между средней и медианной ценой по каждому перевозчику:");
+        analytics.differenceByCarrier().forEach((carrier, diff) ->
+                System.out.printf("  %s: %s%n", carrier, diff));
+
     }
 
 }

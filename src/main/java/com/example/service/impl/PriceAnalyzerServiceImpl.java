@@ -5,9 +5,8 @@ import com.example.service.PriceAnalyzerService;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class PriceAnalyzerServiceImpl implements PriceAnalyzerService {
     @Override
@@ -29,10 +28,26 @@ public class PriceAnalyzerServiceImpl implements PriceAnalyzerService {
         int size = prices.size();
 
         if(size % 2 == 0) {
-            return prices.get(size / 2 - 1).add(prices.get(size / 2))
-                    .divide(new BigDecimal(size), 2, RoundingMode.HALF_UP);
+            return prices.get(size / 2 - 1)
+                    .add(prices.get(size / 2))
+                    .divide(BigDecimal.valueOf(2), 2, RoundingMode.HALF_UP);
         } else {
             return prices.get(size / 2);
         }
+    }
+
+    @Override
+    public Map<String, BigDecimal> differenceByCarrier(List<TicketDto> tickets) {
+        Map<String, BigDecimal> result = new HashMap<>();
+
+        tickets.stream()
+                .collect(Collectors.groupingBy(TicketDto::carrier))
+                .forEach((carrier, list) -> {
+                    BigDecimal avg = average(list);
+                    BigDecimal med = median(list);
+                    result.put(carrier, avg.subtract(med));
+                });
+
+        return result;
     }
 }
